@@ -1,0 +1,10 @@
+image{
+    background-color:Gray;
+}
+.bookImage{
+    float:left;
+    width:250px;
+}
+table.bookInfo{
+    float:left;
+}

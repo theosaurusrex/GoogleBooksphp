@@ -1,20 +1,26 @@
 <?php
 
+// Book text variables 
 $firstName = 'Matthew' ;
 $lastName ='Taylor';
 $bookName = 'Book';
+$publisher = "Penguin";
+
 $AuthorFullName = "$firstName $lastName";
 $bookAndAuthor = "$bookName by $AuthorFullName";
 
+// Book image variables
+$bookImage="https://i0.wp.com/www.theohoward.com/wp-content/uploads/2018/10/web-bjj-custom-art-illustrations-3.jpg?fit=1000%2C787"; 
+$bookImageAlt="Poster and Thales rolling during higher belt class";
 ?>
-
+<!-- ============== Begin html view -->
 <!DOCTYPE= html>
 <html lang="en">
     <head>
     </head>
         <meta charset="UTF-8">
         <title>Google Books API Challenge</title>
-        <link rel="stylesheet" href="" type="text/css">
+        <link rel="stylesheet" href="./css/style.css" type="text/css">
     <body>
 <header>
     <div>
@@ -25,17 +31,20 @@ $bookAndAuthor = "$bookName by $AuthorFullName";
 
 <!-- =================== book search field -->
 
-<!-- =================== book search submit button -->
-
 <form action="/action_page.php">
 Author: <input type="text" name="Author" value="Author"><br>
 Book Title: <input type="text" name="Book Title" value="Book Title"><br>
 <input type="submit" value="Submit">
 </form>
+
+<!-- ===================loop through "book Searcher results function " -->
+
 <!-- =================== book search results -->
 <div>
     <h2><u>Search results</u></h2>
-    <table>
+    <?php echo "<img class='bookImage' src=$bookImage alt=$bookImageAlt>" ?>
+
+    <table class="bookinfo">
         <tr>
             <th>
             <?php echo "Info: $bookAndAuthor"; ?>
@@ -51,6 +60,12 @@ Book Title: <input type="text" name="Book Title" value="Book Title"><br>
             <?php echo "Book: $bookName <br>"; ?>
             </td>
         </tr>
+        <tr>
+            <td>
+            <?php echo "Publisher: $publisher <br>"; ?>
+            </td>
+        </tr>
+     
         
     </table>
 </div>

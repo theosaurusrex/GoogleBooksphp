@@ -48,37 +48,11 @@ Book Title: <input type="text" name="Book Title" value="Book Title"><br>
     <?php 
     for ($x = 0; $x <= 10; $x++) {
        echo "<li><h3>loop function works</h3></li>";
+       echo "<li> bookListItem()</li>";
     } 
     ?>
-    <li>
-        <?php echo "<img class='bookImage' src=$bookImage alt=$bookImageAlt>" ?>
-
-        <table class="bookinfo">
-            <tr>
-                <th>
-                <?php echo "Info: $bookAndAuthor"; ?>
-                </th>
-            </tr>
-            <tr>
-                <td>
-                <?php echo "Author: $AuthorFullName  <br>"; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                <?php echo "Book: $bookName <br>"; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                <?php echo "Publisher: $publisher <br>"; ?>
-                </td>
-            </tr>
-        
-            
-        </table>
-    </li>
-    // end of list item function
+    
+   
 </ol>
 <!-- =================== book list results -->
 

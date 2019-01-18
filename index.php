@@ -31,7 +31,7 @@ $bookImageAlt="Poster and Thales rolling during higher belt class";
 
 <!-- =================== book search field -->
 
-<form action="/action_page.php">
+<form action="/action_page.php" >
 Author: <input type="text" name="Author" value="Author"><br>
 Book Title: <input type="text" name="Book Title" value="Book Title"><br>
 <input type="submit" value="Submit">
@@ -40,35 +40,46 @@ Book Title: <input type="text" name="Book Title" value="Book Title"><br>
 <!-- ===================loop through "book Searcher results function " -->
 
 <!-- =================== book search results -->
-<div>
+<div id="search-results-header">
     <h2><u>Search results</u></h2>
-    <?php echo "<img class='bookImage' src=$bookImage alt=$bookImageAlt>" ?>
-
-    <table class="bookinfo">
-        <tr>
-            <th>
-            <?php echo "Info: $bookAndAuthor"; ?>
-            </th>
-        </tr>
-        <tr>
-            <td>
-            <?php echo "Author: $AuthorFullName  <br>"; ?>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            <?php echo "Book: $bookName <br>"; ?>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            <?php echo "Publisher: $publisher <br>"; ?>
-            </td>
-        </tr>
-     
-        
-    </table>
 </div>
+<ol>
+<!-- ====== Loop through 10 list items here, move <li> to external function ===== -->
+    <?php 
+    for ($x = 0; $x <= 10; $x++) {
+       echo "<li><h3>loop function works</h3></li>";
+    } 
+    ?>
+    <li>
+        <?php echo "<img class='bookImage' src=$bookImage alt=$bookImageAlt>" ?>
+
+        <table class="bookinfo">
+            <tr>
+                <th>
+                <?php echo "Info: $bookAndAuthor"; ?>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                <?php echo "Author: $AuthorFullName  <br>"; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <?php echo "Book: $bookName <br>"; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <?php echo "Publisher: $publisher <br>"; ?>
+                </td>
+            </tr>
+        
+            
+        </table>
+    </li>
+    // end of list item function
+</ol>
 <!-- =================== book list results -->
 
     </body>

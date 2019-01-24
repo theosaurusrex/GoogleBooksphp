@@ -62,43 +62,23 @@ $bookImageAlt="Poster and Thales rolling during higher belt class";
     </form>
 <!-- =================== Display searched-for query -->
 <?php
-if (empty($_POST['searchInput'])) {
-    // $_POST = "";
-  } else {
-    echo "<h2>Search results for ", $_POST['searchInput'],"</h2>";
+    if (!empty($_POST['searchInput'])) {
+        // $_POST = "";
     
+        // =================== book search results
+        echo '<h2>Search results for "', $_POST['searchInput'],'"</h2>';
 
-    $optParams = array('filter' => 'free-ebooks');
-    $results = $service->volumes->listVolumes($_POST['searchInput'], $optParams);
-    //============EXAMPLE: Handling the request
-    
-    foreach ($results as $item) {
-        echo $item['volumeInfo']['title'], "<br /> \n";
+        $optParams = array('filter' => 'free-ebooks');
+        $results = $service->volumes->listVolumes($_POST['searchInput'], $optParams);
+        //============Handling the request, output API data
         
-      }  
-    
-    
-  }
+        foreach ($results as $item) {
+            echo $item['volumeInfo']['title'], "<br /> \n";
+            
+        }  
+        } else {  
+    }
   ?>
-
-
-<!-- =================== book search results -->
- <!-- <div id="search-results-header">
-    <h2><u>Search results</u></h2>
-</div> -->
-
-<!-- ============EXAMPLE: Calling an API -->
-<!-- <?php
-
-// $optParams = array('filter' => 'free-ebooks');
-// $results = $service->volumes->listVolumes($_POST['searchInput'], $optParams);
-// //============EXAMPLE: Handling the request
-
-// foreach ($results as $item) {
-    // echo $item['volumeInfo']['title'], "<br /> \n";
-    
-//   }  
-?> -->
 
 <!-- ====== Loop through 10 list items above, move <li> to external function ===== -->
 <!-- ====== Google books example output function below -->

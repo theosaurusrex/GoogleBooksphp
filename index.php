@@ -59,13 +59,17 @@ Book Title: <input type="text" name="Book Title" value="Book Title"><br>
 <input type="submit" value="Submit">
 </form> -->
 
-<form method="post">
-    <input type='text' name="author" value="Title or Author" />
-    <input type="submit" name="go" value="Submit" />
-</form>
-
+    <h2>Search</h2>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    Search for: 
+    <input type="text" name="q" value="<?php echo isset($_POST['q']) ? 
+     $_POST['q'] : ''; ?>" />
+    <input type="submit" name="submit" value="Go" />
+    </form>
 <!-- ===================loop through "book Searcher results function " -->
 
+    <h2>Search results for '<?php echo $_POST['q']; ?>'</h2>
+    <div>
 <!-- =================== book search results -->
  <div id="search-results-header">
     <h2><u>Search results</u></h2>
@@ -75,11 +79,12 @@ Book Title: <input type="text" name="Book Title" value="Book Title"><br>
 
 
 $optParams = array('filter' => 'free-ebooks');
-$results = $service->volumes->listVolumes('name', $optParams);
+$results = $service->volumes->listVolumes($_POST['q'], $optParams);
 //============EXAMPLE: Handling the request
 
 foreach ($results as $item) {
     echo $item['volumeInfo']['title'], "<br /> \n";
+    
   }  
 ?>
 

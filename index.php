@@ -1,4 +1,26 @@
 <?php
+require_once './vendor/autoload.php';
+// ============ Build Client object
+$client = new Google_Client();
+$client->setApplicationName("Google Books PHP");
+$client->setDeveloperKey("AIzaSyDJkM-1kKkhl0ohzoBohDxaH5mK9yi4gTg");
+//============== Build service object
+
+$service = new Google_Service_Books($client);
+  
+// =============  Google API key
+// $api_key ="AIzaSyDJkM-1kKkhl0ohzoBohDxaH5mK9yi4gTg";
+
+// require composer libraries
+// require_once '/path/to/your-project/vendor/autoload.php';
+
+// =========== require pagination token
+
+// $token = $results->getNextPageToken();
+// $server->listActivities('me', 'public', array('pageToken' => $token));
+
+
+
 
 // Book text variables 
 $firstName = 'Matthew' ;
@@ -30,31 +52,59 @@ $bookImageAlt="Poster and Thales rolling during higher belt class";
 <!-- ===================interface for book search using google api -->
 
 <!-- =================== book search field -->
-
+<!-- 
 <form action="/action_page.php" >
 Author: <input type="text" name="Author" value="Author"><br>
 Book Title: <input type="text" name="Book Title" value="Book Title"><br>
 <input type="submit" value="Submit">
+</form> -->
+
+<form method="post">
+    <input type='text' name="author" value="Title or Author" />
+    <input type="submit" name="go" value="Submit" />
 </form>
 
 <!-- ===================loop through "book Searcher results function " -->
 
 <!-- =================== book search results -->
-<div id="search-results-header">
+ <div id="search-results-header">
     <h2><u>Search results</u></h2>
 </div>
-<ol>
-<!-- ====== Loop through 10 list items here, move <li> to external function ===== -->
-    <?php 
-    for ($x = 0; $x <= 10; $x++) {
-       echo "<li><h3>loop function works</h3></li>";
-       echo "<li> bookListItem()</li>";
-    } 
-    ?>
+<?php
+//============EXAMPLE: Calling an API
+
+
+$optParams = array('filter' => 'free-ebooks');
+$results = $service->volumes->listVolumes('name', $optParams);
+//============EXAMPLE: Handling the request
+
+foreach ($results as $item) {
+    echo $item['volumeInfo']['title'], "<br /> \n";
+  }  
+?>
+
+<!-- ====== Loop through 10 list items above, move <li> to external function ===== -->
+<!-- ====== Google books example output function below -->
     
-   
-</ol>
-<!-- =================== book list results -->
+        <?php
+function bookInfoTable($bookAndAuthor,$AuthorFullName,$bookName){
+            echo '<table class="bookinfo"><tr><th>';
+            echo "<h3>Results Of Call 1:</h3>";
+            foreach ($results['response-thoreau'] as $item) {
+            echo $item['volumeInfo']['title'], "<br /> \n";
+            }
+            echo "<h3>Results Of Call 2:</h3>";
+            foreach ($results['response-shaw'] as $item) {
+            echo $item['volumeInfo']['title'], "<br /> \n";
+            }
+
+                // <?php echo "<img class='bookImage' src=$bookImage alt=$bookImageAlt>" 
+        };
+        // bookInfoTable();
+        ?>
+
+    
+   <!-- =================== book list results -->
 
     </body>
 </html>

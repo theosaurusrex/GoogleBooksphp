@@ -7,34 +7,15 @@ $client->setDeveloperKey("AIzaSyDJkM-1kKkhl0ohzoBohDxaH5mK9yi4gTg");
 //============== Build service object
 
 $service = new Google_Service_Books($client);
-  
-// =============  Google API key
-// $api_key ="AIzaSyDJkM-1kKkhl0ohzoBohDxaH5mK9yi4gTg";
-
-// require composer libraries
-// require_once '/path/to/your-project/vendor/autoload.php';
-
-// =========== require pagination token
-
-// $token = $results->getNextPageToken();
-// $server->listActivities('me', 'public', array('pageToken' => $token));
 
 
-
-
-// Book text variables 
-$firstName = 'Matthew' ;
-$lastName ='Taylor';
-$bookName = 'Book';
-$publisher = "Penguin";
-
-$AuthorFullName = "$firstName $lastName";
-$bookAndAuthor = "$bookName by $AuthorFullName";
-
-// Book image variables
-$bookImage="https://i0.wp.com/www.theohoward.com/wp-content/uploads/2018/10/web-bjj-custom-art-illustrations-3.jpg?fit=1000%2C787"; 
-$bookImageAlt="Poster and Thales rolling during higher belt class";
+// title = $(response.items[i].volumeInfo.title);
+// $author = response.items[i].volumeInfo.authors;
+// $url = response.items[i].volumeInfo.img;
+// $img = response.items[i].volumeInfo.title;
 ?>
+ 
+
 <!-- ============== Begin html view -->
 <!DOCTYPE= html>
 <html lang="en">
@@ -60,7 +41,10 @@ $bookImageAlt="Poster and Thales rolling during higher belt class";
      $_POST['searchInput'] : ''; ?>" />
     <input type="submit" name="submit" value="Go" />
     </form>
-<!-- =================== Display searched-for query -->
+
+
+
+<!-- ========== working with volumes https://developers.google.com/books/docs/v1/using#WorkingVolumes-->
 <?php
     if (!empty($_POST['searchInput'])) {
         // $_POST = "";
@@ -73,7 +57,22 @@ $bookImageAlt="Poster and Thales rolling during higher belt class";
         //============Handling the request, output API data
         
         foreach ($results as $item) {
-            echo $item['volumeInfo']['title'], "<br /> \n";
+            echo '<b>',$item['volumeInfo']['title'], '</b>',"<br /> \n";
+            echo 'author(s): <br />';
+            echo $item['volumeInfo']['authors'][0];
+
+        // ========= multiple authors if statement
+            echo ', ',$item['volumeInfo']['authors'][0];
+            // echo ', ',$item['volumeInfo']['authors'][2],' ';
+            
+            echo "<br /> \n";
+            echo 'publisher: ',$item['volumeInfo']['publisher'], "<br /> \n";
+            echo $item['contentVersion'];
+            // echo $item['imageLinks']{'Thumbnail'};
+            echo "<br /> \n";
+
+            
+            
             
         }  
         } else {  
@@ -81,27 +80,12 @@ $bookImageAlt="Poster and Thales rolling during higher belt class";
   ?>
 
 <!-- ====== Loop through 10 list items above, move <li> to external function ===== -->
-<!-- ====== Google books example output function below -->
-    
-        <?php
-function bookInfoTable($bookAndAuthor,$AuthorFullName,$bookName){
-            echo '<table class="bookinfo"><tr><th>';
-            echo "<h3>Results Of Call 1:</h3>";
-            foreach ($results['response-thoreau'] as $item) {
-            echo $item['volumeInfo']['title'], "<br /> \n";
-            }
-            echo "<h3>Results Of Call 2:</h3>";
-            foreach ($results['response-shaw'] as $item) {
-            echo $item['volumeInfo']['title'], "<br /> \n";
-            }
 
-                // <?php echo "<img class='bookImage' src=$bookImage alt=$bookImageAlt>" 
-        };
-        // bookInfoTable();
-        ?>
-
-    
    <!-- =================== book list results -->
 
     </body>
+
+<!-- // =================== Display searched-for console-log query -->
+
+
 </html>

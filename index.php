@@ -58,25 +58,42 @@ $service = new Google_Service_Books($client);
         
         foreach ($results as $item) {
             echo '<b>',$item['volumeInfo']['title'], '</b>',"<br /> \n";
-            echo 'author(s): <br />';
-            // echo $item['volumeInfo']['authors'][0];
-
-        // ========= multiple authors if statement
-            foreach ($item['volumeInfo']['authors'] as $author)
-                echo "$author, ";
-            // echo ', ',$item['volumeInfo']['authors'][2],' ';
             
-            echo "<br /> \n";
+// Authors
+        if (!empty($item['volumeInfo']['authors'])) {
+            // ========= multiple authors if statement
+            echo 'author(s): <br />';
+            foreach ($item['volumeInfo']['authors'] as $author)
+                    echo "<i>$author </i><br />";
+                // echo ', ',$item['volumeInfo']['authors'][2],' ';
+                
+        }else{
+            echo "<i>No author listed</i> <br /> \n";
+        };
+// Publishers
+
+        if (!empty($item['volumeInfo']['publisher'])) {
             echo 'publisher: ',$item['volumeInfo']['publisher'], "<br /> \n";
-            echo $item['contentVersion'];
             // echo $item['imageLinks']{'Thumbnail'};
             echo "<br /> \n";
-
+        }else{
+            echo "No publisher listed <br /> \n<br /> \n";
+        };
+// ======== image
+    if (!empty($item['imageLinks']['small'])) {
+        echo 'image: <href="';
+        echo $item['imageLinks']['small'];
+        echo '"/> <br /> \n';
+        // echo $item['imageLinks']{'Thumbnail'};
+        echo "<br /> \n";
+    }else{
+        echo "No image listed <br /> \n<br /> \n";
+    };   
             
             
-            
-        }  
-        } else {  
+    }  
+        } else {
+            //empty search field  
     }
   ?>
 

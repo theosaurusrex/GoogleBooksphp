@@ -1,10 +1,22 @@
-image{
+img{
     background-color:Gray;
+    float:right;
+    /* clear:left; */
 }
-.bookImage{
-    float:left;
-    width:250px;
+main{
+    background:lightgrey;
+    padding:2em;
 }
-table.bookInfo{
-    float:left;
+#search{
+    width:100%;
+}
+.booktext{
+
+}
+.allBookinfo{
+    /* width:100%; */
+    background:white;
+    height: 300px;
+    padding: 2em;
+    margin: 2em;
 }

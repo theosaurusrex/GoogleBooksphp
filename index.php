@@ -20,6 +20,7 @@ $service = new Google_Service_Books($client);
 <!DOCTYPE= html>
 <html lang="en">
     <head>
+        <style src="css/style.css" type="stylesheet"></style>
     </head>
         <meta charset="UTF-8">
         <title>Google Books API Challenge</title>
@@ -33,7 +34,7 @@ $service = new Google_Service_Books($client);
 <!-- ===================interface for book search using google api -->
 
 <!-- =================== book search field -->
-
+<div id="search">
     <h2>Search</h2>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     Search for: 
@@ -41,10 +42,11 @@ $service = new Google_Service_Books($client);
      $_POST['searchInput'] : ''; ?>" />
     <input type="submit" name="submit" value="Go" />
     </form>
-
+</div>
 
 
 <!-- ========== working with volumes https://developers.google.com/books/docs/v1/using#WorkingVolumes-->
+<main>
 <?php
     if (!empty($_POST['searchInput'])) {
         // $_POST = "";
@@ -58,10 +60,19 @@ $service = new Google_Service_Books($client);
         
         foreach ($results as $item) {
             echo "<div class='searchResult'>";
-            echo '<b>',$item['volumeInfo']['title'], '</b>',"<br /> \n";
+
             
 // Authors
-        if (!empty($item['volumeInfo']['authors'])) {
+echo "<div class='allBookinfo'>";
+echo "<div class='booktext'>";
+            
+//Non-image div above
+// ======== Book title ==============
+
+echo '<b>',$item['volumeInfo']['title'], '</b>',"<br /> \n";
+
+// =========== authors
+    if (!empty($item['volumeInfo']['authors'])) {
             // ========= multiple authors if statement
             echo 'author(s): <br />';
             foreach ($item['volumeInfo']['authors'] as $author)
@@ -80,60 +91,46 @@ $service = new Google_Service_Books($client);
         }else{
             echo "No publisher listed <br /> \n<br /> \n";
         };
-// ======== image
-// $json = '
-// {
-//     "type": "donut",
-//     "name": "Cake"
-// }';
 
-// $yummy = json_decode($json);
-
-// echo $yummy->type; //donut
-// ========================================================
-// $item = '
-// {
-    // "imageLinks": {
-//         "smallThumbnail": "https://i0.wp.com/www.theohoward.com/wp-content/uploads/2018/10/web-bjj-custom-art-illustrations-3.jpg?fit=1000%2C787";
-//     };
-// }';
-// echo $item->imageLinks->smallThumbnail;
-// $thumbnailImage = json_decode($item['imageLinks']['smallThumbnail']);
-// echo $thumbnailImage->smallThumbnail;
-
-    if (!empty($item['volumeInfo']['imageLinks']['smallThumbnail'])) {
-        echo 'image: <img src="';
-        echo $item['volumeInfo']['imageLinks']['smallThumbnail'];
-        echo '"/> <br /> ';
-        echo "<br /> \n";
-
-    }else{
-        echo '<img src="https://books.google.com/books/content?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"/>';
-        echo "No image listed</ br> \n";
-    };   
 // ==========   Book Info Link
 if (!empty($item['volumeInfo']['infoLink'])) {
+    echo '<a href="';
     echo $item['volumeInfo']['infoLink'];
+    echo '">Learn more about this book!</a> <br />';
+
+}else{
+    echo "No Links to further information found</ br> \n</ br> \n";
+};   
+
+echo "</div>";
+//Non-image div above 
+// ======== image
+
+if (!empty($item['volumeInfo']['imageLinks']['smallThumbnail'])) {
+    echo '<img src="';
+    echo $item['volumeInfo']['imageLinks']['smallThumbnail'];
+    echo '"/> <br /> ';
     echo "<br /> \n";
 
 }else{
-    echo '<img src="https://books.google.com/books/content?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"/>';
     echo "No image listed</ br> \n";
 };   
+echo "</div>"; 
+// ======class='allBookinfo'>; //individual book info ends above
 
 // ======== close div below------- class='searchResult'>
     echo "</div>"; 
 
     }  
         } else {
-            //empty search field  
+            //empty search field, no results to return
     }
   ?>
 
 <!-- ====== Loop through 10 list items above, move <li> to external function ===== -->
 
    <!-- =================== book list results -->
-
+</main>
     </body>
 
 <!-- // =================== Display searched-for console-log query -->

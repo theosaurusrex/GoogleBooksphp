@@ -1,22 +1,15 @@
 <?php
 require_once './vendor/autoload.php';
-// ============ Build Client object
+// ============ Build Client object ======================
 $client = new Google_Client();
 $client->setApplicationName("Google Books PHP");
 $client->setDeveloperKey("AIzaSyDJkM-1kKkhl0ohzoBohDxaH5mK9yi4gTg");
-//============== Build service object
+//============== Build service object ======================
 
 $service = new Google_Service_Books($client);
-
-
-// title = $(response.items[i].volumeInfo.title);
-// $author = response.items[i].volumeInfo.authors;
-// $url = response.items[i].volumeInfo.img;
-// $img = response.items[i].volumeInfo.title;
 ?>
  
-
-<!-- ============== Begin html view -->
+<!-- ============== Begin HTML ====================== -->
 <!DOCTYPE= html>
 <html lang="en">
     <head>
@@ -31,31 +24,27 @@ $service = new Google_Service_Books($client);
     <h1>Google Books API in PHP</h1>
     </div>
 </header>
-<!-- ===================interface for book search using google api -->
-
-<!-- =================== book search field -->
+<!-- =================== book search field ====================== -->
 <div id="search">
     <h2>Search</h2>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     Search for: 
-    <input type="text" name="searchInput" value="<?php echo isset($_POST['searchInput']) ? 
-     $_POST['searchInput'] : ''; ?>" />
-    <input type="submit" name="submit" value="Go" />
+        <input type="text" name="searchInput" value="<?php echo isset($_POST['searchInput']) ? 
+        $_POST['searchInput'] : ''; ?>" />
+        <input type="submit" name="submit" value="Go" />
     </form>
 </div>
-
 
 <!-- ========== working with volumes https://developers.google.com/books/docs/v1/using#WorkingVolumes-->
 <main>
 <?php
     if (!empty($_POST['searchInput'])) {
-        // $_POST = "";
-    
         // =================== book search results
         echo '<h2>Search results for "', $_POST['searchInput'],'"</h2>';
 
         $optParams = array('filter' => 'ebooks');
         $results = $service->volumes->listVolumes($_POST['searchInput'], $optParams);
+        
         //============Handling the request, output API data
         
         foreach ($results as $item) {
@@ -66,7 +55,7 @@ $service = new Google_Service_Books($client);
 echo "<div class='allBookinfo'>";
 echo "<div class='booktext'>";
             
-//Non-image div above
+//========= Non-image div above
 // ======== Book title ==============
 
 echo '<b>',$item['volumeInfo']['title'], '</b>',"<br /> \n";
@@ -103,8 +92,8 @@ if (!empty($item['volumeInfo']['infoLink'])) {
 };   
 
 echo "</div>";
-//Non-image div above 
-// ======== image
+//=============Non-image div above 
+// ======== Book image fxn Below
 
 if (!empty($item['volumeInfo']['imageLinks']['smallThumbnail'])) {
     echo '<img src="';
@@ -126,8 +115,6 @@ echo "</div>";
             //empty search field, no results to return
     }
   ?>
-
-<!-- ====== Loop through 10 list items above, move <li> to external function ===== -->
 
    <!-- =================== book list results -->
 </main>

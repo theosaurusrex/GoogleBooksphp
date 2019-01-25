@@ -59,10 +59,11 @@ $service = new Google_Service_Books($client);
         foreach ($results as $item) {
             echo '<b>',$item['volumeInfo']['title'], '</b>',"<br /> \n";
             echo 'author(s): <br />';
-            echo $item['volumeInfo']['authors'][0];
+            // echo $item['volumeInfo']['authors'][0];
 
         // ========= multiple authors if statement
-            echo ', ',$item['volumeInfo']['authors'][0];
+            foreach ($item['volumeInfo']['authors'] as $author)
+                echo "$author, ";
             // echo ', ',$item['volumeInfo']['authors'][2],' ';
             
             echo "<br /> \n";

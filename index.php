@@ -52,11 +52,12 @@ $service = new Google_Service_Books($client);
         // =================== book search results
         echo '<h2>Search results for "', $_POST['searchInput'],'"</h2>';
 
-        $optParams = array('filter' => 'free-ebooks');
+        $optParams = array('filter' => 'ebooks');
         $results = $service->volumes->listVolumes($_POST['searchInput'], $optParams);
         //============Handling the request, output API data
         
         foreach ($results as $item) {
+            echo "<div class='searchResult'>";
             echo '<b>',$item['volumeInfo']['title'], '</b>',"<br /> \n";
             
 // Authors
@@ -80,17 +81,49 @@ $service = new Google_Service_Books($client);
             echo "No publisher listed <br /> \n<br /> \n";
         };
 // ======== image
-    if (!empty($item['imageLinks']['small'])) {
-        echo 'image: <href="';
-        echo $item['imageLinks']['small'];
-        echo '"/> <br /> \n';
-        // echo $item['imageLinks']{'Thumbnail'};
+// $json = '
+// {
+//     "type": "donut",
+//     "name": "Cake"
+// }';
+
+// $yummy = json_decode($json);
+
+// echo $yummy->type; //donut
+// ========================================================
+// $item = '
+// {
+    // "imageLinks": {
+//         "smallThumbnail": "https://i0.wp.com/www.theohoward.com/wp-content/uploads/2018/10/web-bjj-custom-art-illustrations-3.jpg?fit=1000%2C787";
+//     };
+// }';
+// echo $item->imageLinks->smallThumbnail;
+// $thumbnailImage = json_decode($item['imageLinks']['smallThumbnail']);
+// echo $thumbnailImage->smallThumbnail;
+
+    if (!empty($item['volumeInfo']['imageLinks']['smallThumbnail'])) {
+        echo 'image: <img src="';
+        echo $item['volumeInfo']['imageLinks']['smallThumbnail'];
+        echo '"/> <br /> ';
         echo "<br /> \n";
+
     }else{
-        echo "No image listed <br /> \n<br /> \n";
+        echo '<img src="https://books.google.com/books/content?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"/>';
+        echo "No image listed</ br> \n";
     };   
-            
-            
+// ==========   Book Info Link
+if (!empty($item['volumeInfo']['infoLink'])) {
+    echo $item['volumeInfo']['infoLink'];
+    echo "<br /> \n";
+
+}else{
+    echo '<img src="https://books.google.com/books/content?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"/>';
+    echo "No image listed</ br> \n";
+};   
+
+// ======== close div below------- class='searchResult'>
+    echo "</div>"; 
+
     }  
         } else {
             //empty search field  
